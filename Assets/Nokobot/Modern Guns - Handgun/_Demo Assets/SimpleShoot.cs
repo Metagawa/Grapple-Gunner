@@ -1,85 +1,85 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[AddComponentMenu("Nokobot/Modern Guns/Simple Shoot")]
-public class SimpleShoot : MonoBehaviour
-{
-    [Header("Prefab Refrences")]
-    public GameObject bulletPrefab;
-    public GameObject casingPrefab;
-    public GameObject muzzleFlashPrefab;
+public class SimpleShoot : MonoBehaviour {
 
-    [Header("Location Refrences")]
-    [SerializeField] private Animator gunAnimator;
-    [SerializeField] private Transform barrelLocation;
-    [SerializeField] private Transform casingExitLocation;
+    private LineRenderer lr;
+    private Vector3 grapplePoint;
+    public LayerMask whatIsGrappleable;
+    public Transform gunTip, camera, player;
+    private float maxDistance = 10000f;
+    private SpringJoint joint;
 
-    [Header("Settings")]
-    [Tooltip("Specify time to destory the casing object")] [SerializeField] private float destroyTimer = 2f;
-    [Tooltip("Bullet Speed")] [SerializeField] private float shotPower = 500f;
-    [Tooltip("Casing Ejection Speed")] [SerializeField] private float ejectPower = 150f;
-
-
-    void Start()
-    {
-        if (barrelLocation == null)
-            barrelLocation = transform;
-
-        if (gunAnimator == null)
-            gunAnimator = GetComponentInChildren<Animator>();
+    void Awake() {
+        lr = GetComponent<LineRenderer>();
     }
 
-    void Update()
-    {
-        //If you want a different input, change it here
-        if (Input.GetButtonDown("Fire1"))
-        {
-            //Calls animation on the gun that has the relevant animation events that will fire
-            gunAnimator.SetTrigger("Fire");
+    void Update() {
+       /// if (Input.GetMouseButtonDown(0)) {
+       ///     StartGrapple();
+       /// }
+       /// else if (Input.GetMouseButtonUp(0)) {
+       ///     StopGrapple();
+       /// }
+    }
+
+    //Called after Update
+    void LateUpdate() {
+        DrawRope();
+    }
+
+    /// <summary>
+    /// Call whenever we want to start a grapple
+    /// </summary>
+   public void StartGrapple() {
+        RaycastHit hit;
+        if (Physics.Raycast(camera.position, camera.forward, out hit, maxDistance, whatIsGrappleable)) {
+            grapplePoint = hit.point;
+            joint = player.gameObject.AddComponent<SpringJoint>();
+            joint.autoConfigureConnectedAnchor = false;
+            joint.connectedAnchor = grapplePoint;
+
+            float distanceFromPoint = Vector3.Distance(player.position, grapplePoint);
+
+            //The distance grapple will try to keep from grapple point. 
+            joint.maxDistance = distanceFromPoint * 0.2f;
+            joint.minDistance = distanceFromPoint * 0.25f;
+
+            //Adjust these values to fit your game.
+            joint.spring = 4.5f;
+            joint.damper = 7f;
+            joint.massScale = 4.5f;
+
+            lr.positionCount = 2;
+            currentGrapplePosition = gunTip.position;
         }
     }
 
 
-    //This function creates the bullet behavior
-    void Shoot()
-    {
-        if (muzzleFlashPrefab)
-        {
-            //Create the muzzle flash
-            GameObject tempFlash;
-            tempFlash = Instantiate(muzzleFlashPrefab, barrelLocation.position, barrelLocation.rotation);
-
-            //Destroy the muzzle flash effect
-            Destroy(tempFlash, destroyTimer);
-        }
-
-        //cancels if there's no bullet prefeb
-        if (!bulletPrefab)
-        { return; }
-
-        // Create a bullet and add force on it in direction of the barrel
-        Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
-
+    /// <summary>
+    /// Call whenever we want to stop a grapple
+    /// </summary>
+    public void StopGrapple() {
+        lr.positionCount = 0;
+        Destroy(joint);
     }
 
-    //This function creates a casing at the ejection slot
-    void CasingRelease()
-    {
-        //Cancels function if ejection slot hasn't been set or there's no casing
-        if (!casingExitLocation || !casingPrefab)
-        { return; }
+    private Vector3 currentGrapplePosition;
+    
+    void DrawRope() {
+        //If not grappling, don't draw rope
+        if (!joint) return;
 
-        //Create the casing
-        GameObject tempCasing;
-        tempCasing = Instantiate(casingPrefab, casingExitLocation.position, casingExitLocation.rotation) as GameObject;
-        //Add force on casing to push it out
-        tempCasing.GetComponent<Rigidbody>().AddExplosionForce(Random.Range(ejectPower * 0.7f, ejectPower), (casingExitLocation.position - casingExitLocation.right * 0.3f - casingExitLocation.up * 0.6f), 1f);
-        //Add torque to make casing spin in random direction
-        tempCasing.GetComponent<Rigidbody>().AddTorque(new Vector3(0, Random.Range(100f, 500f), Random.Range(100f, 1000f)), ForceMode.Impulse);
-
-        //Destroy casing after X seconds
-        Destroy(tempCasing, destroyTimer);
+        currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint, Time.deltaTime * 8f);
+        
+        lr.SetPosition(0, gunTip.position);
+        lr.SetPosition(1, currentGrapplePosition);
     }
 
+    public bool IsGrappling() {
+        return joint != null;
+    }
+
+    public Vector3 GetGrapplePoint() {
+        return grapplePoint;
+    }
 }

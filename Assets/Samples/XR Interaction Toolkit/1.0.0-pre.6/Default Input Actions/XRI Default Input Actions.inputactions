@@ -897,6 +897,33 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Custom",
+            "id": "6103b934-901d-4856-8548-702427f3d669",
+            "actions": [
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "62be125a-d724-425a-93f0-7a33cd1f67fb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "12c29696-0034-414e-8a3b-9ded97b4dd27",
+                    "path": "<OculusTouchController>/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
