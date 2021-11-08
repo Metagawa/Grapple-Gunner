@@ -903,9 +903,17 @@
             "id": "6103b934-901d-4856-8548-702427f3d669",
             "actions": [
                 {
-                    "name": "Shoot",
+                    "name": "Grapple",
                     "type": "Button",
-                    "id": "62be125a-d724-425a-93f0-7a33cd1f67fb",
+                    "id": "9bf33a8e-a1ea-40bc-a936-68c924fb93fb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Grapple1",
+                    "type": "Button",
+                    "id": "2a0451b1-0ab4-4343-9ebe-d7be68ac3cb1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -914,12 +922,23 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "12c29696-0034-414e-8a3b-9ded97b4dd27",
-                    "path": "<OculusTouchController>/triggerPressed",
+                    "id": "1c684a0a-e716-4958-83e5-f506d795d90a",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
-                    "action": "Shoot",
+                    "action": "Grapple",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce39e38a-8628-4049-98df-8fa981b05b05",
+                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Grapple1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
