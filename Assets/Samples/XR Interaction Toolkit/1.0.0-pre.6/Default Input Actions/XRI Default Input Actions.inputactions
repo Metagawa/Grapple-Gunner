@@ -917,6 +917,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "ReelGrapple",
+                    "type": "Button",
+                    "id": "0ba47490-d201-4d4a-acdb-f6732c9b3a20",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ReelGrapple1",
+                    "type": "Button",
+                    "id": "5008142f-4723-49b0-8091-0d873fe80310",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -939,6 +955,28 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Grapple1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "654a119d-612b-41b5-aa08-3d2334672329",
+                    "path": "<XRController>{LeftHand}/gripButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "ReelGrapple",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7dcf2c51-aa5d-4a11-ab8f-e82478c98b37",
+                    "path": "<XRController>{RightHand}/gripButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReelGrapple1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
