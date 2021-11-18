@@ -9,4 +9,8 @@ public class SliceListener : MonoBehaviour
     {
         slicer.isTouched = true;
     }
+        private void OnTriggerExit(Collider other)
+    {
+        slicer.isTouched = false;
+    }
 }

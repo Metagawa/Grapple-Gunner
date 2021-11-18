@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
+using System.Collections.Generic;
 
 public class SlowGrapple : MonoBehaviour
 {
     [SerializeField] private InputActionReference grappleActionReference;
     [SerializeField] private InputActionReference grappleReelReference;
-
     private LineRenderer lr;
     private Vector3 grapplePoint;
     public LayerMask whatIsGrappleable;
@@ -14,41 +15,30 @@ public class SlowGrapple : MonoBehaviour
     private SpringJoint joint;
     private bool reeling = false;
     private float distanceFromPoint = 0f;
+    public float reelingSpeed = 1f;
+    public static bool gripBool;
+
 
     void Awake()
     {
         lr = GetComponent<LineRenderer>();
     }
-
     void Start()
     {
-        ///grappleActionReference.action.performed += StopGrapple;
         grappleActionReference.action.started += StartGrapple;
         grappleReelReference.action.started += ReelGrapple;
-        grappleReelReference.action.canceled += StopReelGrapple;
         grappleActionReference.action.canceled += StopGrapple;
     }
     void Update()
     {
 
-        /// if (Input.GetMouseButtonDown(0)) {
-        ///     StartGrapple();
-        /// }
-        /// else if (Input.GetMouseButtonUp(0)) {
-        ///     StopGrapple();
-        /// }
     }
 
-    //Called after Update
     void LateUpdate()
     {
         DrawRope();
 
     }
-
-    /// <summary>
-    /// Call whenever we want to start a grapple
-    /// </summary>
     void StartGrapple(InputAction.CallbackContext obj)
     {
         RaycastHit hit;
@@ -61,40 +51,32 @@ public class SlowGrapple : MonoBehaviour
 
             distanceFromPoint = Vector3.Distance(player.position, grapplePoint);
 
-            //The distance grapple will try to keep from grapple point. 
-            ///joint.maxDistance = distanceFromPoint * 0.2f;
-            /// joint.minDistance = distanceFromPoint * 0.25f;
             joint.maxDistance = distanceFromPoint;
             joint.minDistance = 1f;
 
-            //Adjust these values to fit your game.
             joint.spring = 5.5f;
             joint.damper = 7f;
             joint.massScale = 4.5f;
-
-
 
             lr.positionCount = 2;
             currentGrapplePosition = origin.position;
         }
     }
+
     void ReelGrapple(InputAction.CallbackContext obj)
     {
-        reeling = true;
+        reeling=true;
         if (!joint) return;
-        while (reeling && joint.maxDistance > 0)
+            joint.maxDistance = distanceFromPoint;
+            joint.minDistance = 1f;
+        while (joint.maxDistance>joint.minDistance)
         {
-            joint.maxDistance--;
+            if (reeling==false){
+                break;}
+            joint.maxDistance=joint.maxDistance-0.01f;
         }
     }
 
-    void StopReelGrapple(InputAction.CallbackContext obj)
-    {
-        reeling = false;
-    }
-    /// <summary>
-    /// Call whenever we want to stop a grapple
-    /// </summary>
     void StopGrapple(InputAction.CallbackContext obj)
     {
         lr.positionCount = 0;
@@ -106,7 +88,6 @@ public class SlowGrapple : MonoBehaviour
 
     void DrawRope()
     {
-        //If not grappling, don't draw rope
         if (!joint) return;
 
         currentGrapplePosition = Vector3.Lerp(currentGrapplePosition, grapplePoint, Time.deltaTime * 8f);
