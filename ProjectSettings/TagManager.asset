@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SkyboxCamera
   - Wall
+  - Handler
   layers:
   - Default
   - TransparentFX

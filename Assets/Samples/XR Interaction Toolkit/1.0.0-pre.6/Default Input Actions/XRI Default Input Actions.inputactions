@@ -933,6 +933,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Thruster",
+                    "type": "Button",
+                    "id": "485bf32a-61f8-437d-9013-12109f762f66",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -977,6 +985,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ReelGrapple1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69b4cce1-caf4-47ce-bd75-c60575b72680",
+                    "path": "<XRController>{RightHand}/primary",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Thruster",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

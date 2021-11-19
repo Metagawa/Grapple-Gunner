@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+using System.Threading;
+using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +9,8 @@ public class SlowGrapple : MonoBehaviour
 {
     [SerializeField] private InputActionReference grappleActionReference;
     [SerializeField] private InputActionReference grappleReelReference;
+    [SerializeField] private float thrustForce = 500.0f;
+    [SerializeField] private InputActionReference thrustActionReference;
     private LineRenderer lr;
     private Vector3 grapplePoint;
     public LayerMask whatIsGrappleable;
@@ -15,9 +19,9 @@ public class SlowGrapple : MonoBehaviour
     private SpringJoint joint;
     private bool reeling = false;
     private float distanceFromPoint = 0f;
-    public float reelingSpeed = 1f;
-    public static bool gripBool;
-
+    public bool thrust = false;
+    public int i = 0;
+    [SerializeField] private Rigidbody playerBody;
 
     void Awake()
     {
@@ -25,9 +29,20 @@ public class SlowGrapple : MonoBehaviour
     }
     void Start()
     {
+        thrustActionReference.action.started += ThrustBoost;
+        thrustActionReference.action.canceled += ThrustCancel;
         grappleActionReference.action.started += StartGrapple;
         grappleReelReference.action.started += ReelGrapple;
         grappleActionReference.action.canceled += StopGrapple;
+        grappleReelReference.action.canceled += StopReelGrapple;
+    }
+
+
+    private void OnEnable()
+    {
+    }
+    private void OnDisable()
+    {
     }
     void Update()
     {
@@ -37,8 +52,46 @@ public class SlowGrapple : MonoBehaviour
     void LateUpdate()
     {
         DrawRope();
+        if (joint)
+        {
+        distanceFromPoint = Vector3.Distance(player.position, grapplePoint);
 
+        }
     }
+    void ThrustBoost(InputAction.CallbackContext obj)
+    {
+
+        ///playerBody.AddForce(Camera.main.transform.forward * thrustForce);
+        Vector3 dir = Camera.main.transform.forward;
+        dir.y=0.5f;
+        Vector3 temp=playerBody.velocity;
+        temp.y=10f;
+        playerBody.velocity=temp;
+        float speed =playerBody.velocity.magnitude;
+        playerBody.velocity = speed * dir;
+        Vector3 secondaryTemp=playerBody.velocity;
+        if (secondaryTemp.x<0)
+        {
+        secondaryTemp.x=secondaryTemp.x-thrustForce;
+        } else
+        {
+        secondaryTemp.x=secondaryTemp.x+thrustForce;
+        }
+
+        if (secondaryTemp.z<0)
+        {
+        secondaryTemp.z=secondaryTemp.z-thrustForce;
+        } else
+        {
+        secondaryTemp.z=secondaryTemp.z+thrustForce;
+        }        playerBody.velocity=secondaryTemp;
+        playerBody.velocity=playerBody.velocity.magnitude* dir;
+    }
+    void ThrustCancel(InputAction.CallbackContext obj)
+    {
+        i=0;
+    }
+
     void StartGrapple(InputAction.CallbackContext obj)
     {
         RaycastHit hit;
@@ -52,7 +105,7 @@ public class SlowGrapple : MonoBehaviour
             distanceFromPoint = Vector3.Distance(player.position, grapplePoint);
 
             joint.maxDistance = distanceFromPoint;
-            joint.minDistance = 1f;
+            joint.minDistance = 0.0f;
 
             joint.spring = 5.5f;
             joint.damper = 7f;
@@ -65,26 +118,36 @@ public class SlowGrapple : MonoBehaviour
 
     void ReelGrapple(InputAction.CallbackContext obj)
     {
-        reeling=true;
+        reeling = true;
         if (!joint) return;
-            joint.maxDistance = distanceFromPoint;
-            joint.minDistance = 1f;
-        while (joint.maxDistance>joint.minDistance)
+        joint.minDistance = 0.0f;
+        while (joint.maxDistance > joint.minDistance)
         {
-            if (reeling==false){
-                break;}
-            joint.maxDistance=joint.maxDistance-0.01f;
+            if (reeling == false)
+            {
+                break;
+            }
+            joint.maxDistance = joint.maxDistance - 0.01f;
         }
     }
 
+    void StopReelGrapple(InputAction.CallbackContext obj)
+    {
+        reeling = false;
+        joint.maxDistance = Vector3.Distance(player.position, grapplePoint);
+    }
     void StopGrapple(InputAction.CallbackContext obj)
     {
         lr.positionCount = 0;
+        if (joint)
+        {
         Destroy(joint);
+        }
     }
 
 
     private Vector3 currentGrapplePosition;
+    private Vector3 speed;
 
     void DrawRope()
     {

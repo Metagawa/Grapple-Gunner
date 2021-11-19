@@ -3,7 +3,6 @@ using System.Globalization;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
 using EzySlice;
 public class Slicer : MonoBehaviour
 {
@@ -14,9 +13,12 @@ public class Slicer : MonoBehaviour
     public DissolveChilds SlicedParentHandler;
     private MeshRenderer m_meshRenderer;
     private MeshRenderer n_meshRenderer;
+    int slicedCount;
 
+    LevelEndListener levelEndListener;
     private void Start()
     {
+        levelEndListener=GameObject.FindGameObjectWithTag("Handler").GetComponent<LevelEndListener>();
     }
 
     private void Update()
@@ -36,8 +38,8 @@ public class Slicer : MonoBehaviour
                 upperHullGameobject.transform.SetParent(objectToBeSliced.gameObject.transform.parent,false);
                 lowerHullGameobject.transform.SetParent(objectToBeSliced.gameObject.transform.parent,false);
                 Destroy(objectToBeSliced.gameObject);
-                upperHullGameobject.layer = 7;
-                lowerHullGameobject.layer = 7;
+                ///upperHullGameobject.layer = 7;
+                ///lowerHullGameobject.layer = 7;
                 m_meshRenderer = upperHullGameobject.GetComponent<MeshRenderer>();
                 n_meshRenderer = lowerHullGameobject.GetComponent<MeshRenderer>();
                 m_meshRenderer.material = materialAfterSlice;
@@ -46,8 +48,9 @@ public class Slicer : MonoBehaviour
                 MakeItPhysical(lowerHullGameobject);
                 Destroy(upperHullGameobject.gameObject, 5);
                 Destroy(lowerHullGameobject.gameObject, 5);
-            }
 
+                levelEndListener.IncrementNumber(); 
+            }
         }
     }
 

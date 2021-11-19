@@ -6,7 +6,7 @@ using UnityEngine;
     {
         // Start is called before the first frame update
         List<Material> materials = new List<Material>();
-        bool PingPong = false;
+        //bool PingPong = false;
         void Start()
         {
             var renders = GetComponentsInChildren<Renderer>();
