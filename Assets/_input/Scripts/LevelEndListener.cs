@@ -28,13 +28,17 @@ public class LevelEndListener : MonoBehaviour
         {
             slicedCount=0;
 
-            SceneManager.LoadScene(sceneToLoad);
-            player.position = targetPosition;
-            player.rotation=Quaternion.identity;
-            player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            StartCoroutine(WaitForSceneLoad());
+
         }   
     }
-
+ private IEnumerator WaitForSceneLoad() {
+     yield return new WaitForSeconds(3);
+     SceneManager.LoadScene(sceneToLoad);
+    player.position = targetPosition;
+    player.rotation=Quaternion.identity;
+    player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+ }
     public void IncrementNumber()
 {
     slicedCount++;
