@@ -941,6 +941,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Blaster",
+                    "type": "Button",
+                    "id": "ffd2e0ca-51d6-44c1-a6d0-f83a560a7881",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -996,6 +1004,17 @@
                     "processors": "",
                     "groups": "Generic XR Controller",
                     "action": "Thruster",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c9865d3-80cb-4155-a03a-1ae4ae707478",
+                    "path": "<XRController>{LeftHand}/primary",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "Blaster",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

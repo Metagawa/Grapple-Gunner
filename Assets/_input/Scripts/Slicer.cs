@@ -15,10 +15,8 @@ public class Slicer : MonoBehaviour
     private MeshRenderer n_meshRenderer;
     int slicedCount;
 
-    LevelEndListener levelEndListener;
     private void Start()
     {
-        levelEndListener=GameObject.FindGameObjectWithTag("Handler").GetComponent<LevelEndListener>();
     }
 
     private void Update()
@@ -30,26 +28,23 @@ public class Slicer : MonoBehaviour
             Collider[] objectsToBeSliced = Physics.OverlapBox(transform.position, new Vector3(1, 0.1f, 0.1f), transform.rotation, sliceMask);
             foreach (Collider objectToBeSliced in objectsToBeSliced)
             {
-                SlicedHull slicedObject = SliceObject(objectToBeSliced.gameObject, materialAfterSlice);
+                SlicedHull slicedObject = SliceObject(objectToBeSliced.gameObject, slicedEdgeMaterial);
                 GameObject upperHullGameobject = slicedObject.CreateUpperHull(objectToBeSliced.gameObject, slicedEdgeMaterial);
                 GameObject lowerHullGameobject = slicedObject.CreateLowerHull(objectToBeSliced.gameObject, slicedEdgeMaterial);
-                upperHullGameobject.transform.position = objectToBeSliced.transform.position;
-                upperHullGameobject.transform.position = objectToBeSliced.transform.position;
+                //upperHullGameobject.transform.position = objectToBeSliced.transform.position;
+                //lowerHullGameobject.transform.position = objectToBeSliced.transform.position;
                 upperHullGameobject.transform.SetParent(objectToBeSliced.gameObject.transform.parent,false);
                 lowerHullGameobject.transform.SetParent(objectToBeSliced.gameObject.transform.parent,false);
                 Destroy(objectToBeSliced.gameObject);
-                ///upperHullGameobject.layer = 7;
-                ///lowerHullGameobject.layer = 7;
                 m_meshRenderer = upperHullGameobject.GetComponent<MeshRenderer>();
                 n_meshRenderer = lowerHullGameobject.GetComponent<MeshRenderer>();
-                m_meshRenderer.material = materialAfterSlice;
-                n_meshRenderer.material = materialAfterSlice;
+                //m_meshRenderer.material = materialAfterSlice;
+                //n_meshRenderer.material = materialAfterSlice;
                 MakeItPhysical(upperHullGameobject);
                 MakeItPhysical(lowerHullGameobject);
                 Destroy(upperHullGameobject.gameObject, 5);
                 Destroy(lowerHullGameobject.gameObject, 5);
 
-                levelEndListener.IncrementNumber(); 
             }
         }
     }
@@ -58,6 +53,7 @@ public class Slicer : MonoBehaviour
     {
         obj.AddComponent<MeshCollider>().convex = true;
         obj.AddComponent<Rigidbody>();
+        obj.layer = 7;
     }
 
     private SlicedHull SliceObject(GameObject obj, Material crossSectionMaterial = null)
