@@ -38,8 +38,8 @@ public class Slicer : MonoBehaviour
                 Destroy(objectToBeSliced.gameObject);
                 m_meshRenderer = upperHullGameobject.GetComponent<MeshRenderer>();
                 n_meshRenderer = lowerHullGameobject.GetComponent<MeshRenderer>();
-                //m_meshRenderer.material = materialAfterSlice;
-                //n_meshRenderer.material = materialAfterSlice;
+                m_meshRenderer.material = materialAfterSlice;
+                n_meshRenderer.material = materialAfterSlice;
                 MakeItPhysical(upperHullGameobject);
                 MakeItPhysical(lowerHullGameobject);
                 Destroy(upperHullGameobject.gameObject, 5);

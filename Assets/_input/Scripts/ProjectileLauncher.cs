@@ -23,7 +23,7 @@ public class ProjectileLauncher : MonoBehaviour
         {
         GameObject sword = Instantiate(projectile, transform.position, transform.rotation);    
         sword.GetComponent<Rigidbody>().AddRelativeForce(new Vector3 (0, launchVelocity,0));
-        Destroy(sword, 1f);
+        Destroy(sword, 2f);
 
         }
 }
