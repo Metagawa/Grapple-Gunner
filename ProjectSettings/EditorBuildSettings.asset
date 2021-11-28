@@ -9,14 +9,23 @@ EditorBuildSettings:
     path: Assets/_Scenes/Main.unity
     guid: ca77b6f2d6c4e0443b6d367faf623349
   - enabled: 1
-    path: Assets/_Scenes/Level 1.unity
-    guid: 15ffa91401ee33246ba561bf7fc1e0b2
+    path: Assets/_Scenes/Obstacle course.unity
+    guid: a6530aaa1919a9b4b99660e36a6e762b
   - enabled: 1
-    path: Assets/_Scenes/Level 2.unity
-    guid: 392c8a7f78fc6c14daf52f4652d11a2f
+    path: Assets/_Scenes/Main 1.unity
+    guid: 26545c2f142c2264d8c31fed6e2cf2dc
   - enabled: 1
-    path: Assets/_Scenes/TheEnd.unity
-    guid: 45f1fb1fd5f3a94439088cd14232a943
+    path: Assets/_Scenes/Challenge Mode.unity
+    guid: 92fe4d1fb65923847bb872502a392f90
+  - enabled: 1
+    path: Assets/_Scenes/Zero Gravity Mode.unity
+    guid: 6a1080645e9b4bc46bc8b1941013951a
+  - enabled: 1
+    path: Assets/_Scenes/Break the Targets Mode.unity
+    guid: dc62cc636bfa5244cabcd191eca81297
+  - enabled: 1
+    path: Assets/_Scenes/Sword Mode.unity
+    guid: 845dd1bcfd577dc4dbacfdb9602935a8
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 9c096458652dc6d458481946f509a8cc, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e35860e5dc61fc94d912e8548f96958d, type: 2}

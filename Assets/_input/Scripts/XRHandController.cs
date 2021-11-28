@@ -12,13 +12,17 @@ public enum HandType
 public class XRHandController : MonoBehaviour
 {
     public HandType handType;
+
     public float thumbMoveSpeed = 0.1f;
 
     private Animator animator;
+
     private InputDevice inputDevice;
 
     private float indexValue;
+
     private float thumbValue;
+
     private float threeFingersValue;
 
     // Start is called before the first frame update
@@ -36,19 +40,26 @@ public class XRHandController : MonoBehaviour
 
     InputDevice GetInputDevice()
     {
-        InputDeviceCharacteristics controllerCharacteristic = InputDeviceCharacteristics.HeldInHand | InputDeviceCharacteristics.Controller;
+        InputDeviceCharacteristics controllerCharacteristic =
+            InputDeviceCharacteristics.HeldInHand |
+            InputDeviceCharacteristics.Controller;
 
         if (handType == HandType.Left)
         {
-            controllerCharacteristic = controllerCharacteristic | InputDeviceCharacteristics.Left;
+            controllerCharacteristic =
+                controllerCharacteristic | InputDeviceCharacteristics.Left;
         }
         else
         {
-            controllerCharacteristic = controllerCharacteristic | InputDeviceCharacteristics.Right;
+            controllerCharacteristic =
+                controllerCharacteristic | InputDeviceCharacteristics.Right;
         }
 
         List<InputDevice> inputDevices = new List<InputDevice>();
-        InputDevices.GetDevicesWithCharacteristics(controllerCharacteristic, inputDevices);
+        InputDevices.GetDevicesWithCharacteristics (
+            controllerCharacteristic,
+            inputDevices
+        );
 
         return inputDevices[0];
     }
@@ -56,10 +67,15 @@ public class XRHandController : MonoBehaviour
     void AnimateHand()
     {
         inputDevice.TryGetFeatureValue(CommonUsages.trigger, out indexValue);
-        inputDevice.TryGetFeatureValue(CommonUsages.grip, out threeFingersValue);
+        inputDevice
+            .TryGetFeatureValue(CommonUsages.grip, out threeFingersValue);
 
-        inputDevice.TryGetFeatureValue(CommonUsages.primaryTouch, out bool primaryTouched);
-        inputDevice.TryGetFeatureValue(CommonUsages.secondaryTouch, out bool secondaryTouched);
+        inputDevice
+            .TryGetFeatureValue(CommonUsages.primaryTouch,
+            out bool primaryTouched);
+        inputDevice
+            .TryGetFeatureValue(CommonUsages.secondaryTouch,
+            out bool secondaryTouched);
 
         if (primaryTouched || secondaryTouched)
         {

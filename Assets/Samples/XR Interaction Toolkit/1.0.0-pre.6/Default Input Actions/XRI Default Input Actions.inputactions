@@ -935,7 +935,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Thruster",
+                    "name": "Right Reel",
                     "type": "Button",
                     "id": "485bf32a-61f8-437d-9013-12109f762f66",
                     "expectedControlType": "Button",
@@ -943,9 +943,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Blaster",
+                    "name": "Left Reel",
                     "type": "Button",
                     "id": "ffd2e0ca-51d6-44c1-a6d0-f83a560a7881",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MenuLeft",
+                    "type": "Button",
+                    "id": "02087172-79f6-4cae-ba22-6e893aadcad7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -1003,7 +1011,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
-                    "action": "Thruster",
+                    "action": "Right Reel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1014,7 +1022,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Generic XR Controller",
-                    "action": "Blaster",
+                    "action": "Left Reel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "95e231d3-3668-45ed-9e53-2005a7db4b0d",
+                    "path": "<OculusTouchController>{LeftHand}/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Generic XR Controller",
+                    "action": "MenuLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

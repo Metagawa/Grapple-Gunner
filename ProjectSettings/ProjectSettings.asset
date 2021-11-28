@@ -152,8 +152,10 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: -4511443107033819204, guid: 468148fba6f20834f962a2a854bc8b99, type: 2}
-  - {fileID: 2916477211259248108, guid: e35860e5dc61fc94d912e8548f96958d, type: 2}
+  - {fileID: 0}
+  - {fileID: 7749187575306880456, guid: 468148fba6f20834f962a2a854bc8b99, type: 2}
+  - {fileID: 3843937774863836387, guid: e35860e5dc61fc94d912e8548f96958d, type: 2}
+  - {fileID: 11400000, guid: 9c096458652dc6d458481946f509a8cc, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -170,7 +172,8 @@ PlayerSettings:
   resolutionScalingMode: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier: {}
+  applicationIdentifier:
+    Standalone: com.DefaultCompany.VRCS4071
   buildNumber:
     Standalone: 0
     iPhone: 0
