@@ -33,7 +33,7 @@ public class MenuScript : MonoBehaviour
     {
     }
 
-    void MenuOpen(InputAction.CallbackContext obj)
+    public void MenuOpen(InputAction.CallbackContext obj)
     {
         currentScene = SceneManager.GetActiveScene().name;
 
@@ -62,4 +62,5 @@ public class MenuScript : MonoBehaviour
             }
         }
     }
+
 }
