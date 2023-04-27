@@ -1,6 +1,25 @@
+<div align="center">
+  
 # Grapple-Gunner
 
-Simple Grapple based VR game for a third year project! ![alt text](https://github.com/TomC17/Grapple-Gunner/blob/master/Assets/Grapple%20Gunner%20Logo.png)
-Grapple Gunner, a simple grapple game where you can shoot targets with your guns and use grappling lasers to propel yourself around in VR!
+**Grapple Gunner** is a fun and engaging game where you can shoot targets with your guns and use grappling lasers to propel yourself around in VR!
 
-Various modes such as Zero Gravity, Break the Targets and Melee mode are available!
+<table>
+  <tr>
+    <td>
+      <a href="https://www.youtube.com/watch?v=c5Rw0AvpiPs">
+        <img src="https://github.com/Metagawa/Grapple-Gunner/blob/master/youtube.png" alt="Grapple-Gunner">
+      </a>
+    </td>
+  </tr>
+</table>
+
+</div>
+
+## Game Modes
+
+* **Zero Gravity:** Experience the thrill of floating in space!
+* **Break the Targets:** Put your aim to the test by breaking targets as quickly as possible!
+* **Melee Mode:** Engage in close-quarters combat with challenging foes!
+
+Jump into the world of Grapple Gunner and explore new heights in virtual reality!
